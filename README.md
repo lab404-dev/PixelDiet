@@ -1,9 +1,9 @@
-# PixelDiet
+# 🍪 PixelDiet
 
 <p align="center">
   <strong>LAB 404 DEV</strong>
   <br>
-  <em>Image Optimization Utility</em>
+  <em>Freshly baked tools. Carefully optimized pixels.</em>
 </p>
 
 <p align="center">
@@ -11,87 +11,73 @@
 </p>
 
 <p align="center">
-  <strong>Compress smarter. Keep originals safe.</strong>
+  <strong>Less bytes. Same pixels. No crumbs left behind.</strong>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-00D9FF?style=flat-square" alt="Version">
-  <img src="https://img.shields.io/badge/python-3.12%2B-00D9FF?style=flat-square" alt="Python">
-  <img src="https://img.shields.io/badge/license-MIT-white?style=flat-square" alt="License">
-  <img src="https://img.shields.io/badge/status-stable-00D9FF?style=flat-square" alt="Status">
+  <img src="https://img.shields.io/badge/version-1.0.0-00D9FF?style=flat-square">
+  <img src="https://img.shields.io/badge/python-3.12%2B-00D9FF?style=flat-square">
+  <img src="https://img.shields.io/badge/status-stable-00D9FF?style=flat-square">
 </p>
 
 ---
 
-## / 01 — Overview
+## 🍪 The Cookie Jar — About
 
-**PixelDiet** is a command-line image optimization tool developed by **Lab 404 Dev**.
+Welcome to **PixelDiet**, another freshly baked utility from **Lab 404 Dev**.
 
-It reduces image file sizes toward a specified per-file limit while preserving the original files. Instead of relying on a single compression setting, PixelDiet automatically searches for suitable JPEG and WebP quality levels and reduces image dimensions when necessary.
+Images can be big. Bytes can be hungry. And nobody likes unnecessary baggage.
 
-Designed for predictable output, batch processing, and straightforward integration into everyday workflows.
+PixelDiet is a command-line image optimization tool that reduces image file sizes toward a specified target while keeping original files safe.
 
-## / 02 — Features
+It uses Pillow, automatic JPEG/WebP quality search, and dimension reduction to get the job done.
 
-- **Target-based compression** — specify the maximum desired file size.
-- **Automatic quality search** — searches JPEG and WebP quality settings from 20 to 95.
-- **Dimension reduction** — resizes images when quality adjustment is insufficient.
-- **Recursive processing** — processes entire directory trees.
-- **Format conversion** — convert supported images using `--format`.
-- **Safe originals** — source files are never overwritten.
-- **Flexible output** — save optimized files beside sources or in a custom destination.
-- **Size units** — supports bytes, decimal and binary units.
+**Our philosophy:** keep the image, lose the excess weight.
 
-## / 03 — Installation
+---
 
-**Requirements:** Python 3.12 or newer.
+## 🍪 Ingredients — Features
 
-Clone the repository:
+- Target-based image compression
+- Automatic JPEG/WebP quality search
+- Dimension reduction when needed
+- Recursive folder processing
+- Image format conversion
+- Safe original file preservation
+- Custom output destinations
+- Flexible size units
+
+---
+
+## 🍪 Baking Instructions — Installation
+
+Requires Python 3.12 or newer.
 
 ```bash
 git clone https://github.com/lab404-dev/PixelDiet.git
 cd PixelDiet
-```
-
-Install the project with development dependencies:
-
-```bash
 python -m pip install -e ".[dev]"
 ```
 
-## / 04 — Usage
-
-### Single image
+## 🍪 Recipe Book — Usage
 
 ```bash
+# Optimize a single image
 pixeldiet photo.jpg --target 500KB
-```
 
-### Directory processing
-
-```bash
+# Process an entire directory
 pixeldiet ./photos --target 1MB --verbose
-```
 
-### Format conversion
-
-```bash
+# Convert PNG to WebP
 pixeldiet photo.png --target 300KB --format webp
-```
 
-### Custom output
-
-Use `--output` to select a destination file for a single input or a destination directory for folder processing.
-
-```bash
+# Save results to a custom folder
 pixeldiet ./photos --target 500KB --output ./optimized
 ```
 
-## / 05 — Size Units
+## 🍪 Cookie Sizes — Supported Units
 
-PixelDiet accepts the following size units:
-
-| Unit | Description |
+| Unit | Meaning |
 |---|---|
 | `B` | Bytes |
 | `KB` | Decimal kilobytes |
@@ -99,63 +85,47 @@ PixelDiet accepts the following size units:
 | `KiB` | Binary kibibytes |
 | `MiB` | Binary mebibytes |
 
-For directory input, the specified target applies independently to every image.
+Each image in a directory receives the same individual maximum size.
 
-## / 06 — Processing Logic
+## 🍪 Kitchen Rules — How It Works
 
-PixelDiet uses Pillow's installed image decoders and encoders.
-
-The optimization pipeline:
-
-1. Reads the source image.
+1. Loads the source image using Pillow.
 2. Determines the requested output format.
-3. Searches JPEG/WebP quality settings where applicable.
-4. Reduces dimensions when necessary.
+3. Searches JPEG/WebP quality settings from 20 to 95.
+4. Reduces dimensions if necessary.
 5. Saves the best available result.
-6. Reports whether the target size was reached.
 
-Other formats use encoder optimization followed by dimension reduction.
+By default, output keeps the source format; `--format` selects another supported output format. Original files are never overwritten. By default, optimized images are saved beside their source with an `.optimized` suffix. Use `--output` to choose a destination file for one image or a destination folder for directory input. For directory input, the relative folder structure is preserved.
 
-### Processing limitations
+### Known limitations
 
-- Animated images currently use their first frame.
-- Multi-page TIFF files currently use their first page.
-- JPEG and WebP quality search is limited to 20–95.
+- Animated images currently use only their first frame.
+- Multi-page TIFF files currently use only their first page.
 - The minimum image dimension is 64 pixels.
-- If the target cannot be reached, PixelDiet preserves the best result and reports that the limit was not achieved.
+- If the target cannot be reached, PixelDiet keeps the best result and reports that the target was not achieved. `--verbose` prints each image's size change and a batch total; without it, PixelDiet prints only images that miss the target.
+- Available formats depend on installed Pillow decoders and encoders.
 
-Pillow determines which image formats are available in the installed environment.
-
-## / 07 — Output & File Safety
-
-By default, optimized files are saved next to their source files with an `.optimized` suffix.
-
-Original files are never overwritten.
-
-When a custom output location is specified, PixelDiet writes the resulting files to that destination.
-
-## / 08 — Project Information
+## 🍪 Bakery Information
 
 | Property | Value |
 |---|---|
 | Project | PixelDiet |
 | Organization | Lab 404 Dev |
 | Version | 1.0.0 |
-| Language | Python |
-| Minimum Python | 3.12 |
-| Main dependency | Pillow |
+| Language | Python 3.12+ |
+| Dependency | Pillow |
 | Interface | CLI |
 | Category | Image Processing |
 
-## / 09 — Links
+## 🍪 Fresh From The Oven — Links
 
-- **Repository:** [lab404-dev/PixelDiet](https://github.com/lab404-dev/PixelDiet)
-- **Organization:** [Lab 404 Dev](https://github.com/lab404-dev)
+- [GitHub Repository](https://github.com/lab404-dev/PixelDiet)
+- [Lab 404 Dev](https://github.com/lab404-dev)
 
 ---
 
 <p align="center">
-  <strong>LAB 404 DEV</strong>
+  🍪 <strong>LAB 404 DEV</strong> 🍪
   <br>
-  <sub>Independent development. Practical tools. No unnecessary complexity.</sub>
+  <sub>We bake tools, not excuses.</sub>
 </p>
